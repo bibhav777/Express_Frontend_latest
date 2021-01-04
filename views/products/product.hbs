@@ -1,0 +1,108 @@
+ <!-- Main nav and search bar -->
+            <div class="breadcome-area">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="breadcome-list">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                                        <div class="breadcome-heading">
+                                            <form role="search" method="POST" action="/product/search">
+                                                <input type="text" name="search" placeholder="Search By Name..." class="form-control" style="display: inline;" >
+                                                <button type="submit" class="btn btn-primary">Search</button>    
+                                            </form>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<div class="product-status mg-tb-15">
+            <div class="container-fluid">
+                
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="product-status-wrap">
+                            <h4>Products List</h4>
+                            {{#if message}}
+                                            <div class="alert alert-primary" role="alert">
+                                            <p>{{message}}</p>
+                                            </div>
+                                            {{/if}}
+                            <div class="add-product">
+                                <a href="/product/add">Add Product</a>
+                            </div>
+                            <table>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Product Title</th>
+                                    <th>Description</th>
+                                    <th>Product Length</th>
+                                    <th>Product Width</th>
+                                    <th>Product Height</th>
+                                    <th>Price</th>
+                                    <th>Setting</th>
+                                </tr>
+                                {{#each datas}}
+                                <tr>
+                                    
+                                    {{#if this.product_image}}
+                                    <td>
+                                    {{#each this.product_image}}
+                                    <img src="http://localhost:8000/{{this}}" alt="" width="20px" height="100px"/>
+                                    {{/each}}
+                                    </td>
+                                    {{else}}
+                                    <td><img src="" alt="No image" /></td>
+                                    {{/if}}
+                                    <td>{{this.product_name}}</td>
+                                    <td>
+                                        <button type="button" class="pd-setting" data-toggle="modal" data-target="#myModal{{this._id}}">Click me</button>
+                                    </td>
+                                    <td>{{this.product_length}}</td>
+                                    <td>{{this.product_width}}</td>
+                                    <td>{{this.product_height}}</td>
+                                    <td>{{this.product_price}}</td>
+                                    <td>
+                                        <a data-toggle="tooltip" title="Edit" href="http://localhost:8000/product/update/{{this._id}}" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                        <a data-toggle="tooltip" title="Trash" href="http://localhost:8000/product/delete/{{this._id}}" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </td>
+
+                                     <!-- The Modal -->
+<div class="modal" id="myModal{{this._id}}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Description</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        {{this.product_description}}
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+                                  {{/each}}
+                            </table>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+       

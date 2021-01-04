@@ -1,0 +1,272 @@
+ <!-- Main nav and search bar -->
+            <div class="breadcome-area">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="breadcome-list">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                                        <div class="breadcome-heading">
+                                            <form role="search" method="POST" action="/shipment/search">
+                                                <input type="text" name="search" placeholder="Search By Name..." class="form-control" style="display: inline;" >
+                                                <button type="submit" class="btn btn-primary">Search</button>    
+                                            </form>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<div class="product-status mg-tb-15">
+            <div class="container-fluid">
+                <div class="row">
+                                            
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="product-status-wrap">
+                            <h4>Shipment List</h4>
+                            {{#if message}}
+                                            <div class="alert alert-primary" role="alert">
+                                            <p>{{message}}</p>
+                                            </div>
+                                            {{/if}}
+                            <div class="add-product">
+                                <a href="/shipment/add">Add Shipment</a>
+                            </div>
+                            <table>
+                                <tr>
+                                    <th>Package</th>
+                                    <th>Courier Status</th>
+                                    <th>Sender All Detail</th>
+                                    <th>Recipient Detail</th>
+                                   
+                                    <th>Tracking Number</th>
+                                    <th>Products Detail</th>
+                                    <th>Delivery Staff</th>
+                                    <th>Courier Detail</th>
+                                    <th>Courier Time</th>
+                                    <th>Courier Date</th>
+                                    <th>Setting</th>
+                                </tr>
+
+                                 {{#each datas}}
+                                  <tr>
+                                      <td>
+                                          {{this.package_name}}
+                                      </td>
+                                       <td>
+                                          {{this.courier_status}}
+                                      </td>
+                                      <td>
+                                          <button type="button" class="pd-setting" data-toggle="modal" data-target="#senderModal">Click me</button>
+                                      </td>
+                                      <td>
+                                          <button type="button" class="pd-setting" data-toggle="modal" data-target="#receipantModal">Click me</button>
+                                      </td>
+                                      
+                                      <td>
+                                          {{this.tracking_number}}
+                                      </td>
+                                      <td>
+                                          <button type="button" class="pd-setting" data-toggle="modal" data-target="#productModal">Click me</button>
+                                      </td>
+                                      <td>
+                                          {{this.delivery_staff.first_name}} {{this.delivery_staff.last_name}}
+                                      </td>
+                                      <td>
+                                           <button type="button" class="pd-setting" data-toggle="modal" data-target="#courierModal">Click me</button>
+                                      </td>
+                                      
+                                      <td>
+                                          {{this.courier_time}}
+                                      </td>
+                                      <td>
+                                          {{formatTime this.courier_date "YYYY-MM-DD"}}
+                                      </td>
+                                      
+                                      <td>
+                                          <a data-toggle="tooltip" title="Edit" href="http://localhost:8000/shipment/update/{{this._id}}" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                        <a data-toggle="tooltip" title="Trash" href="http://localhost:8000/shipment/delete/{{this._id}}" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i>
+                                      </td>
+
+                                      <!-- Sender Modal -->
+<div class="modal fade" id="senderModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Description</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="font-size: 16px;">
+         <ul>
+         <li>
+         Sender Contact : {{this.sender_contact}}
+         
+         </li>
+         <li>
+         Sender Address : {{this.sender_address}}
+        
+         </li>
+         <li>
+         Sender City : {{this.sender_city}}
+         
+         </li>
+         <li>
+         Sender State : {{this.sender_state}}
+         
+         </li>
+         <li>
+         Sender Postcode : {{this.sender_postcode}}
+         
+         </li>
+         <li>
+         Sender Country : {{this.sender_country}}
+         
+         </li>
+        </ul>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+                                      <!-- Receipant Modal -->
+<div class="modal" id="receipantModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Description</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="font-size: 16px;">
+        <ul>
+         <li>
+         Receipant name: {{this.recipient_name}} 
+         </li>
+         <li>
+           Receipant contact: {{this.recipient_contact}}
+         </li> 
+         <li>
+           Recipent city: {{this.recipient_city}}
+         </li>
+          <li>
+        Receipant address: {{this.recipient_address}} 
+        </li>
+         <li>
+        Receipant state: {{this.recipient_state}} 
+        </li>
+        <li>
+          Receipant Code: {{this.recipient_postcode}} 
+        </li>
+        </ul>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+                            <!-- Product Modal -->
+<div class="modal" id="productModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Description</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="font-size: 16px;">
+        {{#each this.products}}
+            <ul>
+            <li>
+            Product Name: {{this.product_name}}
+            </li>
+            <li>Product Description: {{this.product_description}}</li>
+            <li>Product Price: {{this.product_price}}</li>
+            
+            
+          
+            </ul>
+            <br>
+        {{/each}}
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Product Modal -->
+<div class="modal" id="courierModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Description</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="font-size: 16px;">
+        <ul>
+          <li>
+            Courier History : {{this.courier_history}} 
+          </li>
+          <li>
+            Courier Remarks : {{this.courier_remarks}}
+          </li>
+        </ul>
+        
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div> 
+                                  </tr>
+                                 {{/each}}
+                               
+  </div>
+</div>
+                                
+                            </table>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+       

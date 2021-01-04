@@ -1,0 +1,342 @@
+
+<!-- Single pro tab start-->
+        <div class="single-product-tab-area mg-tb-15">
+            <!-- Single pro tab review Start-->
+            <div class="single-pro-review-area">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="review-tab-pro-inner">
+                                <ul id="myTab3" class="tab-review-design">
+                                    <li class="active"><a href="#description"><i class="fa fa-pencil" aria-hidden="true"></i> Shipment Add</a></li>
+                                </ul>
+                                <div id="myTabContent" class="tab-content custom-product-edit">
+                                    <div class="product-tab-list tab-pane fade active in" id="description">
+                                        <div class="row">
+                                        <form method="POST" action="/shipment/add" >
+                                                <!--Product Form-->
+                                                <div class="col-lg-12 col-md-6 col-sm-6 col-xs-12">  
+                                                <div class="review-content-section">
+                                                    <div class="panel panel-default">
+              
+                                                    </div>  
+             
+                                                    <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                                        <input type="text"name="package_name" class="form-control" placeholder="Package Name">
+                                                    </div>
+                                                    <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                                                        <input type="text" name="package_length" class="form-control" placeholder="Package Length">
+                                                    </div>
+                                                    <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-arrows-h" aria-hidden="true"></i></span>
+                                                        <input type="number" name="package_width" class="form-control" placeholder="Package Width">
+                                                    </div>
+
+                                                       <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-arrows-v" aria-hidden="true"></i></span>
+                                                        <input type="text" name="package_height" class="form-control" placeholder="Package Height">
+                                                    </div>
+                                                    
+                                                   
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                <div class="review-content-section">
+                                                        <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                                         <textarea name="package_description" placeholder="Description" rows="6" cols="50" name="Package Description"></textarea>      
+                                                    </div>
+                                                   
+                                                 
+                        
+                                                    <label for="delivery_staff">Assign a staff:</label>
+                                                        <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-qrcode" aria-hidden="true"></i></span>
+                                                        
+                                                        <select name="delivery_staff" id="delivery_staff" class="form-control">
+                                                        {{#each staffs}}
+                                                        <option value="{{this._id}}" name="delivery_staff">{{this.first_name}} {{this.last_name}}</option>
+                                                        {{/each}}
+                                                        </select>
+                                                        </div>
+                       
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <div class="row">
+                                           <!--List Product -->
+                                           <div class="product-status mg-tb-15">
+            <div class="container-fluid">
+                
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="product-status-wrap">
+                            <h4>Products List</h4>
+                            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                            <table class="table table-bordered table-striped mb-0">
+                                <tr>
+                                     <th>Select</th>
+                                    <th>Image</th>
+                                    <th>Product Title</th>
+                                    <th>Description</th>
+                                    <th>Product Length</th>
+                                    <th>Product Width</th>
+                                    <th>Product Height</th>
+                                    <th>Price</th>
+                                   
+                                </tr>
+                                {{#each products}}
+                                <tr>
+                                     <td>
+                                      <input type="checkbox" name="products" value="{{this._id}}">
+                                    </td>
+                                    {{#if this.product_image}}
+                                    <td>
+                                    {{#each this.product_image}}
+                                    <img src="http://localhost:8000/{{this}}" alt="" width="20px" height="100px"/>
+                                    {{/each}}
+                                    </td>
+                                    {{else}}
+                                    <td><img src="" alt="No image" /></td>
+                                    {{/if}}
+                                    <td>{{this.product_name}}</td>
+                                    <td>
+                                        <button type="button" class="pd-setting" data-toggle="modal" data-target="#myModal{{this._id}}">Click me</button>
+                                    </td>
+                                    <td>{{this.product_length}}</td>
+                                    <td>{{this.product_width}}</td>
+                                    <td>{{this.product_height}}</td>
+                                    <td>{{this.product_price}}</td>
+                                   
+
+                                     <!-- The Modal -->
+                                    <div class="modal" id="myModal{{this._id}}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Description</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                            {{this.product_description}}
+                                        </div>
+
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                        </div>
+
+                                        </div>
+                                    </div>
+                                    </div>
+                                  {{/each}}
+                            </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                                            </div>
+                                            </div>
+
+                                             <div class="row">
+                                           <!--Sender Form-->
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
+                                                <div class="review-content-section">
+                                                    <div class="panel panel-default">
+              
+                                                    </div>  
+             
+                                                    <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                                        <input type="text"name="sender_name" class="form-control" placeholder="Sender Name">
+                                                    </div>
+                                                     <label for="sender_branch">Select the branch:</label>
+                                                        <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-qrcode" aria-hidden="true"></i></span>
+                                                        
+                                                        <select name="sender_branch" id="sender_branch" class="form-control">
+                                                        {{#each branches}}
+                                                        <option value="{{this._id}}" name="sender_branch">{{this.branch_name}}</option>
+                                                        {{/each}}
+                                                        </select>
+                                                        </div>
+                                                    <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                                                        <input type="number" name="sender_contact" class="form-control" placeholder="Sender Contact">
+                                                    </div>
+
+                                                       <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-sticky-note-o" aria-hidden="true"></i></span>
+                                                        <input type="text" name="sender_address" class="form-control" placeholder="Sender Address">
+                                                    </div>
+
+                                                   
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                <div class="review-content-section">
+                                                            <div class="panel panel-default">
+              
+                                                    </div>  
+                                                    <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                                        <input type="text"name="sender_city" class="form-control" placeholder="Sender City">
+                                                    </div>
+
+                                                    <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                                        <input type="text"name="sender_state" class="form-control" placeholder="Sender State">
+                                                    </div>
+
+                                                    <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                                        <input type="text"name="sender_postcode" class="form-control" placeholder="Sender Postcode">
+                                                    </div>
+
+                                                    <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                                        <input type="text"name="sender_country" class="form-control" placeholder="Sender Country">
+                                                    </div>
+                                                   
+                                                 
+                        
+                                                    
+                       
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <!--Reciepant Form--> 
+                                            <div class="row">
+                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
+                                                <div class="review-content-section">
+                                                    <div class="panel panel-default">
+              
+                                                    </div>  
+             
+                                                    <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                                        <input type="text"name="recipient_name" class="form-control" placeholder="Recipient Name">
+                                                    </div>
+                                                    <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                                                        <input type="text" name="recipient_contact" class="form-control" placeholder="Recipient Contact">
+                                                    </div>
+                                                    <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-qrcode" aria-hidden="true"></i></span>
+                                                        <input type="text" name="recipient_address" class="form-control" placeholder="Recipient Address">
+                                                    </div>
+
+                                                       <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-sticky-note-o" aria-hidden="true"></i></span>
+                                                        <input type="text" name="recipient_city" class="form-control" placeholder="Recipient City">
+                                                    </div>
+
+                                                   
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                <div class="review-content-section">
+                                                            <div class="panel panel-default">
+              
+                                                    </div>  
+                                                    <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                                        <input type="text"name="recipient_state" class="form-control" placeholder="Recipient State">
+                                                    </div>
+
+                                                    <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                                        <input type="text"name="recipient_postcode" class="form-control" placeholder="Recipient Postcode">
+                                                    </div>
+
+                                                    <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                                        <input type="text"name="recipient_country" class="form-control" placeholder="Recipient Country">
+                                                    </div>
+
+                                                    
+                                                   
+                                                 
+                        
+                                                    
+                       
+                                                </div>
+                                            </div>
+                                            </div>
+
+                                            <!--Courier Form--> 
+                                            <div class="row">
+                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
+                                                <div class="review-content-section">
+                                                    <div class="panel panel-default">
+              
+                                                    </div>  
+
+                                                     <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                                                        <input type="text" name="courier_time" class="form-control" placeholder="Delivery Time on format like 2:00am">
+                                                    </div>
+
+                                                   <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                                         <textarea name="courier_history" placeholder="Courier History" rows="6" cols="50" name="Package Description"></textarea>      
+                                                    </div>
+                                                    
+                                                    
+                                                    
+
+                                                     
+
+                                                   
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                <div class="review-content-section">
+                                                            <div class="panel panel-default">
+              
+                                                    </div>  
+                                                            
+                                                  <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                                        <input type="date" name="courier_date" class="form-control" placeholder="Delivery Date">
+                                                    </div>
+                                                 
+                                                    
+                                                    <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                                         <textarea name="courier_remarks" placeholder="Courier Remarks" rows="6" cols="50" name="Package Description"></textarea>      
+                                                    </div>
+                       
+                                                </div>
+                                            </div>
+                                            </div>
+
+                                            <!--Submit-->
+                                            <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="text-center mg-b-pro-edt custom-pro-edt-ds">
+                                                    <button type="submit" class="btn btn-primary waves-effect waves-light m-r-10">Save
+														</button>
+                                                   
+                                                </div>
+                                            </div>
+                                            </div>
+                                    </div>
+                                                                     
+                    </form>
+                                
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

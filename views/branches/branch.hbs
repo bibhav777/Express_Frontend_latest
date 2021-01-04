@@ -1,0 +1,67 @@
+ <!-- Main nav and search bar -->
+            <div class="breadcome-area">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="breadcome-list">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                        <div class="breadcome-heading">
+                                            <form role="search" method="POST" action="/branch/search">
+                                                <input type="text" name="search" placeholder="Name..." required class="form-control" style="display: inline;">
+                                                <button type="submit" class="btn btn-primary">Search</button>
+                                                <a href=""><i class="fa fa-search" ></i></a>
+                                            </form>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-status mg-tb-15">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="product-status-wrap">
+                            <h4>Branch List view</h4>
+                            <div class="add-product">
+                                <a href="/branch/add">Add  Branch</a>
+                            </div>
+
+                             {{#if msg}}
+	                                     <p>{{msg}}</p>
+              {{/if}}
+                            <table>
+                                <tr>
+                                    <th>Branch Name</th>
+                                    <th>Address </th>
+                                    <th>Contact-Person-Name</th>
+                                    <th>Contact-Person-Phone</th>
+                                    <th>Setting</th>
+                                </tr>
+                              
+                                {{#each datas}}
+                                <tr>
+                                    <td>{{this.branch_name}}</td>
+                                    <td>{{this.address}}</td>
+                                    <td>{{this.contact_person_name}}</td>
+                                    <td>{{this.contact_person_phone}}</td>
+                                    <td>
+                                         
+                                        <a href="/branch/update/{{this._id}}">
+                                        <button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                                 
+                            </table>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
